@@ -4,7 +4,7 @@
 #
 Name     : pypi-nbval
 Version  : 0.9.6
-Release  : 25
+Release  : 26
 URL      : https://files.pythonhosted.org/packages/7a/5c/ae5ea6f6bbaefcb4de94072bd31566682fe927f33ab8bfeb8f0179aa346a/nbval-0.9.6.tar.gz
 Source0  : https://files.pythonhosted.org/packages/7a/5c/ae5ea6f6bbaefcb4de94072bd31566682fe927f33ab8bfeb8f0179aa346a/nbval-0.9.6.tar.gz
 Summary  : A py.test plugin to validate Jupyter notebooks
@@ -72,7 +72,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656390481
+export SOURCE_DATE_EPOCH=1656392156
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
