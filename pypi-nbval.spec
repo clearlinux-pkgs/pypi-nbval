@@ -4,15 +4,12 @@
 #
 Name     : pypi-nbval
 Version  : 0.9.6
-Release  : 31
+Release  : 33
 URL      : https://files.pythonhosted.org/packages/7a/5c/ae5ea6f6bbaefcb4de94072bd31566682fe927f33ab8bfeb8f0179aa346a/nbval-0.9.6.tar.gz
 Source0  : https://files.pythonhosted.org/packages/7a/5c/ae5ea6f6bbaefcb4de94072bd31566682fe927f33ab8bfeb8f0179aa346a/nbval-0.9.6.tar.gz
 Summary  : A py.test plugin to validate Jupyter notebooks
 Group    : Development/Tools
 License  : BSD-3-Clause
-Requires: pypi-nbval-license = %{version}-%{release}
-Requires: pypi-nbval-python = %{version}-%{release}
-Requires: pypi-nbval-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
 BuildRequires : pypi(coverage)
 BuildRequires : pypi(ipykernel)
@@ -20,45 +17,15 @@ BuildRequires : pypi(jupyter_client)
 BuildRequires : pypi(nbformat)
 BuildRequires : pypi(pytest)
 BuildRequires : pypi(six)
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 # Py.test plugin for validating Jupyter notebooks
 [![Build Status](https://travis-ci.org/computationalmodelling/nbval.svg)](https://travis-ci.org/computationalmodelling/nbval)
 [![PyPI Version](https://badge.fury.io/py/nbval.svg)](https://pypi.python.org/pypi/nbval)
 [![Documentation Status](https://readthedocs.org/projects/nbval/badge/)](https://nbval.readthedocs.io/)
-
-%package license
-Summary: license components for the pypi-nbval package.
-Group: Default
-
-%description license
-license components for the pypi-nbval package.
-
-
-%package python
-Summary: python components for the pypi-nbval package.
-Group: Default
-Requires: pypi-nbval-python3 = %{version}-%{release}
-
-%description python
-python components for the pypi-nbval package.
-
-
-%package python3
-Summary: python3 components for the pypi-nbval package.
-Group: Default
-Requires: python3-core
-Provides: pypi(nbval)
-Requires: pypi(coverage)
-Requires: pypi(ipykernel)
-Requires: pypi(jupyter_client)
-Requires: pypi(nbformat)
-Requires: pypi(pytest)
-Requires: pypi(six)
-
-%description python3
-python3 components for the pypi-nbval package.
-
 
 %prep
 %setup -q -n nbval-0.9.6
@@ -72,15 +39,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656392156
+export SOURCE_DATE_EPOCH=1672292109
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
@@ -97,7 +64,7 @@ popd
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pypi-nbval
-cp %{_builddir}/nbval-0.9.6/LICENSE %{buildroot}/usr/share/package-licenses/pypi-nbval/513445083aea9d04e54fb40e2a366cd48637094d
+cp %{_builddir}/nbval-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/pypi-nbval/513445083aea9d04e54fb40e2a366cd48637094d || :
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -114,14 +81,3 @@ popd
 
 %files
 %defattr(-,root,root,-)
-
-%files license
-%defattr(0644,root,root,0755)
-/usr/share/package-licenses/pypi-nbval/513445083aea9d04e54fb40e2a366cd48637094d
-
-%files python
-%defattr(-,root,root,-)
-
-%files python3
-%defattr(-,root,root,-)
-/usr/lib/python3*/*
