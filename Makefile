@@ -1,5 +1,5 @@
 PKG_NAME := pypi-nbval
-URL = https://files.pythonhosted.org/packages/55/f6/2e96e620cd960a4fd07e4ac1dbb5a2cfdfa500c8735f8d71694ee40f70fc/nbval-0.10.0.tar.gz
+URL = https://files.pythonhosted.org/packages/28/be/22bd64d09e0cb53258f83b6fc455f05f18a78e3e5c109ccb6af42f1f49a2/nbval-0.11.0.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
